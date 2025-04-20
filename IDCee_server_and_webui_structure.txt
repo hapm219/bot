@@ -1,0 +1,53 @@
+📁 CẤU TRÚC TRÊN MÁY CHỦ B (IDCee SERVER - MAC MINI M4)
+=======================================================
+
+IDCee/
+├── app/                            # 🚀 FastAPI backend
+│   ├── main.py                     # Khởi chạy FastAPI
+│   ├── api.py                      # Endpoint: /chat, /health, ...
+│   ├── rag_engine.py               # FAISS + LLM gọi trả lời
+│   ├── models.py                   # Schema dữ liệu (Pydantic)
+│   ├── deps.py                     # Load model/index
+│   └── config.py                   # Tham số cấu hình
+│
+├── data/
+│   ├── raw/
+│   │   ├── manuals/
+│   │   └── procedures/
+│   ├── refined/
+│   │   ├── manuals/
+│   │   └── procedures/
+│   ├── index/
+│   │   ├── manuals/
+│   │   │   ├── index.faiss
+│   │   │   └── mapping.json
+│   │   └── procedures/
+│   ├── encoder/
+│   │   └── bge-m3/
+│   ├── data_refine.py
+│   └── data_indexing.py
+│
+├── models/
+│   └── mistral-7b-instruct-v0.2.Q4_K_M.gguf
+│
+├── load_model.py
+├── idcee.py
+├── requirements.txt
+├── .env
+├── .gitignore
+└── README.md
+
+
+📁 CẤU TRÚC MÁY CHỦ A (WEB UI - REACT)
+======================================
+
+idcee-webui/
+├── public/
+├── src/
+│   ├── pages/
+│   ├── components/
+│   ├── api/                  # Gọi tới FastAPI tại: https://<domain>/api/chat
+│   └── App.jsx
+├── package.json
+├── vite.config.js            # hoặc next.config.js nếu dùng Next.js
+└── README.md

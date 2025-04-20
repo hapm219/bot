@@ -1,0 +1,7 @@
+faiss-cpu 
+sentence-transformers
+tqdm
+python-docx
+pdfminer.six    
+ctransformer
+

@@ -1,0 +1,14 @@
+# Ignore everything
+**
+
+# Nhưng cho phép thư mục (để giữ cấu trúc)
+!*/
+
+# Cho phép file .py ở mọi cấp
+!**/*.py
+
+# Cho phép giữ lại file .gitignore
+!.gitignore
+
+# ✅ Cho phép file .txt ở thư mục chính
+!/*.txt
