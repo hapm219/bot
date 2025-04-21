@@ -1,0 +1,8 @@
+transformers>=4.38.2
+sentence-transformers>=2.2.2
+onnxruntime>=1.16.3
+faiss-cpu>=1.7.4
+llama-cpp-python>=0.2.56
+streamlit>=1.31.1
+tqdm>=4.66.2
+requests>=2.31.0

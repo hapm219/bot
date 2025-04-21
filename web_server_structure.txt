@@ -1,0 +1,16 @@
+idcee-webui/
+├── node_modules/                 # 📦 Thư viện cài bởi npm
+├── public/                      # 🔹 Static assets (nếu có favicon, ảnh...)
+├── src/                         # 🔧 Source code TypeScript
+│   ├── App.tsx                  # ✅ Component chính
+│   └── main.tsx                 # Khởi tạo React app
+│   └── ... (các file phụ nếu có)
+├── index.html                   # 🔹 HTML gốc để mount React
+├── package.json                 # 📦 Khai báo dependencies và script
+├── package-lock.json            # 🔒 Khóa phiên bản dependency
+├── tsconfig.json                # ⚙️ Cấu hình TypeScript
+├── tsconfig.node.json           # ⚙️ Phục vụ Node dev
+├── vite.config.ts               # ⚙️ Cấu hình Vite build/dev server
+├── .gitignore                   # 🔒 Git exclusion
+├── README.md                    # 📝 (tùy chọn) mô tả dự án
+├── eslint.config.js             # (tùy chọn) ESLint rules

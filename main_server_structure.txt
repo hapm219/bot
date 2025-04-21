@@ -1,0 +1,23 @@
+IDCee/
+├── mainapi.py              # ✅ FastAPI backend dùng cho React / Mobile gọi API
+├── idcee.py                # 🧠 CLI: chạy chatbot trong terminal
+├── load_model.py           # 🧠 Load mô hình llama.cpp (.gguf)
+├── web_ui.py               # 🖥️ (tuỳ chọn) Streamlit hoặc mini UI cho desktop
+│
+├── data/                   # 📦 Dữ liệu nội bộ
+│   ├── raw/
+│   ├── refined/
+│   ├── index/
+│   │   ├── manuals/
+│   │   └── procedures/
+│   ├── encoder/
+│   │   └── bge-m3/
+│   ├── data_refine.py
+│   └── data_indexing.py
+│
+├── models/
+│   └── mistral-7b-instruct-v0.2.Q4_K_M.gguf
+│
+├── requirements.txt        # 📦 Thư viện backend
+├── start_server.sh         # 🔁 (tuỳ chọn) chạy FastAPI bằng nohup
+└── README.md               # 📘 Mô tả dự án
