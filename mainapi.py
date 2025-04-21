@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from pathlib import Path
-import glob, json, time
+import glob, json, time, base64
 import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
@@ -85,30 +86,30 @@ Trả lời:
 """
 
     start_time = time.time()
-    result = llm(prompt, max_tokens=MAX_TOKENS)
     token_count = 0
-    response_text = ""
 
-    if isinstance(result, str):
-        response_text = result
-        token_count = len(result.strip().split())
-    elif hasattr(result, "__iter__") and not isinstance(result, dict):
-        response_text = "".join(str(chunk) for chunk in result)
-        token_count = len(response_text.strip().split())
-    elif isinstance(result, dict) and "choices" in result:
-        delta = result["choices"][0]["text"]
-        response_text = delta
-        token_count = len(delta.strip().split())
-    else:
-        response_text = "(Không thể xử lý phản hồi)"
+    async def generate():
+        nonlocal token_count
+        result = llm(prompt, max_tokens=MAX_TOKENS, stream=True)
+        if hasattr(result, "__iter__"):
+            for chunk in result:
+                delta = chunk["choices"][0]["text"] if "choices" in chunk else str(chunk)
+                token_count += len(delta.strip().split())
+                yield delta
+        else:
+            yield str(result)
 
-    duration = round(time.time() - start_time, 2)
-    meta = {
-        "response_time_sec": duration,
-        "new_tokens": token_count,
-        "context_length": len(context),
-        "top_k_chunks": top_chunks,
-        "context_used": context.strip()
-    }
+        # ✅ Gửi metadata dạng Base64 cuối stream
+        duration = round(time.time() - start_time, 2)
+        meta = {
+            "response_time_sec": duration,
+            "new_tokens": token_count,
+            "context_length": len(context),
+            "top_k_chunks": top_chunks,
+            "context_used": context.strip()
+        }
+        meta_str = json.dumps(meta, ensure_ascii=False)
+        meta_b64 = base64.b64encode(meta_str.encode("utf-8")).decode("ascii")
+        yield f"\n[[[META-B64]]]{meta_b64}"
 
-    return { "text": response_text, "meta": meta }
+    return StreamingResponse(generate(), media_type="text/plain")
